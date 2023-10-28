@@ -1,0 +1,61 @@
+﻿@model List<first.Models.Product>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: blue;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .container {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the admin page</h1>
+    <a asp-action="MyOrder" asp-controller="Order" class="btn btn-secondary">CArt LIst</a>
+    <div>
+        @foreach (var product in Model)
+        {
+            <div onclick="handleClick(@product.Id)">
+                <div>
+                    <img src="~/imgs/@product.Image" width="160px" height="200px" title="رواية وليمة للغربان" alt="" data-src="/sites/default/files/2021-01/Webp.net-compress-image_17.jpg" src="/sites/default/files/2021-01/Webp.net-compress-image_17.jpg">
+                </div>
+                <h3 class="title"><a>@product.Name</a></h3>
+                <p class="author-label"><a>@product.Description</a></p>
+                <p class="book-info">
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a> |
+                        <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-secondary"><i class="bi bi-eye"></i></a> |
+                        <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-secondary"><i class="bi bi-trash3"></i></a>
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        <a asp-action="AddToOrder" asp-controller="Order" asp-route-id="@product.Id" class="btn btn-secondary">Add To Order</a>
+                  
+                        <a asp-action="DeleteOrderDetail" asp-controller="Order" asp-route-id="@product.Id" class="btn btn-secondary">Delete Order</a>
+                       
+
+                            
+                 <a asp-action="Create" asp-controller="Review" asp-route-id="@product.Id" class="btn btn-secondary">Add Review</a></div>
+                  
+            </div>
+        }
+    </div>
+
+
+
+</body>
+</html>

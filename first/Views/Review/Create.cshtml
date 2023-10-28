@@ -1,0 +1,62 @@
+﻿@model first.ViewModel.ReviewViewModel
+
+@{
+    Layout = "~/Views/shared/_lay.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Form</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Leave a Review</h1>
+        <form asp-action="Create" enctype="multipart/form-data">
+         @*   <div class="form-group">
+                <label for="Comment">Comment:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Rating">Rating:</label>
+                <select asp-for="Rating" class="form-control" id="rating">
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment">Review:</label>
+                <textarea  asp-for="Comment" class="form-control" id="review" rows="4" placeholder="Write your review here"></textarea>
+                
+            </div>
+        <div>
+                <label asp-for="ReviewDate"></label>
+                <input asp-for="ReviewDate" value="@DateTime.Now" />
+
+            </div>
+            <div style="display:none">
+             
+                <label asp-for="ProductId"></label>
+                <input asp-for="ProductId"  value="@Model.ProductId" />
+			
+                <label asp-for="UserId"></label>
+                <input asp-for="UserId"  value="@Model.UserId" />
+				
+             	  </div>
+            <button type="submit" class="btn btn-primary" >Submit Review</button>
+        </form>
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js (if required) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

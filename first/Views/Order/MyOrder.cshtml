@@ -1,0 +1,174 @@
+﻿@model List<OrderDetail>
+
+@{
+    Layout = "~/Views/shared/_lay.cshtml";
+}
+
+<style>
+    #cart table td i.fa-solid.fa-trash {
+        color:black;
+    }
+    tbody 
+    td{
+        
+        font-weight:600;
+    }
+    td.counter {
+        
+        gap: 15px;
+        margin: auto;
+       
+      
+    }
+
+    i.fa-solid.fa-plus, i.fa-solid.fa-minus {
+        background: #00ADB5;
+        padding: 5px 10px;
+        color: white;
+        border-radius: 2px;
+        
+    }
+
+    i.fa-solid.fa-plus{
+        float:left;
+        margin-left:15px;
+
+    }
+i.fa-solid.fa-minus{
+        float:right;
+        margin-right:15px;
+
+    }
+</style>
+    <section id="clothes-banner">
+        <h2>Cart</h2>
+    </section>
+    <section id="cart">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>REMOVE</td>
+                    <td>IMAGE</td>
+                    <td>PRODUCT</td>
+                    <td>UNIT PRICE</td>
+                    <td>QUANTITY</td>
+                    <td>SUBTOTAL</td>
+                </tr>
+            </thead>
+            <tbody>
+            @{
+                var OrderPrice = 0;
+            }
+                @foreach(var item in Model){
+                    <tr>
+                       
+                        <td>
+                            <a id="ONDelete" onclick="ONDelete(@item.Id)">
+								<i class="fa-solid fa-trash"></i>
+							</a>
+                        </td>
+
+                        <td>
+                         <a asp-controller="Product" asp-action="ShowProduct" asp-route-id="@item.Product.Id">
+                
+                            <img src="~/imgs/@item.Product.Image">
+						</a>
+					</td>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Product.Price</td>
+                       
+                       
+                    @{
+                        var x =@item.Product.Price * @item.Quantity;
+                        OrderPrice += x;
+                    }
+
+                    <td class="counter">
+                        <a id="plus" onclick="GetAction(1,@item.Product.Id)">
+                            <i class="fa-solid fa-plus"></i>
+                        </a>
+
+                        <span id="@item.Product.Id">@item.Quantity</span>
+
+                        <a id="Minus" onclick="GetAction(0,@item.Product.Id)">
+                            <i class="fa-solid fa-minus"></i>
+                        </a>
+                    </td>
+
+                    <td>@x</td><!--        -->
+                    </tr>
+                }
+
+             
+            </tbody>
+        </table>
+    </section>
+    <section id="cat-add">
+        <div id="total-price">
+            <h3>Carts Total</h3>
+            <table>
+                <tr>
+                    <td>Carts Subtotal</td>
+                    <td>@OrderPrice</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>  
+                <tr>
+                    <td>Total</td>
+                    <td>@OrderPrice</td>
+                </tr>  
+            </table>
+            <button>Buy</button>
+        </div>
+    </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+   
+    function GetAction(x,id){
+        var url = '';
+        if(x){
+            url = '/Order/Plus';
+        }
+        else {
+               url = '/Order/Minus';
+        }
+      
+        $.ajax({
+        url: url,
+        type: 'POST',
+        data: { id: id},
+        success: function (result){
+            if (result.done) {//true
+                    document.getElementById(id).innerHTML = result.quantity;
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+        
+    });
+    }
+    
+    function ONDelete(id){
+        url = '/Order/DeleteProduct';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { id: id },
+            success: function (result) {
+                if (result.done) {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+
+        });
+    }
+</script>

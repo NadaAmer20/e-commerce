@@ -1,0 +1,84 @@
+﻿@model first.ViewModel.ProductCategory
+@{
+    SelectList Names;
+    Names = new SelectList(ViewBag.Names,"Name","Name");
+}
+<h1>Add New product</h1>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        body {
+            background-color: bisque;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .container {
+            margin-top: 1rem;
+        }
+
+        .form-control {
+            background-color: white;
+            color: black;
+        }
+
+    </style>
+</head>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddNewProduct" asp-asp-controller="Admin" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+             <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" value="@Model.Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" value="@Model.Price" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockQuantity" class="control-label"></label>
+                <input asp-for="StockQuantity" class="form-control" value="@Model.StockQuantity" />
+                <span asp-validation-for="StockQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" value="@Model.Description" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" type="file" name="img_file" value="@Model.Image" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+			</div>CategoryName
+            <div>
+                <label  class="control-label"></label>
+            <select asp-for="CategoryName" asp-items="Names"></select>
+            <span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+
+         
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

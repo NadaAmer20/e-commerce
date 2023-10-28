@@ -1,0 +1,55 @@
+﻿@model User 
+<style>
+  
+    .ProfilePic {
+        height: 295px;
+        width: 295px;
+        object-fit: cover;
+    }
+
+    .avatar {
+        height: 40px;
+        width: 40px;
+        object-fit: cover;
+    }
+</style>
+<h4>@ViewData["Title"]</h4>
+
+<form id="profile-form" method="post" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" value="@Model.UserName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" class="form-control" value="@Model.Phone" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Picture" class="w-100"></label>
+             
+                    <img id="Picture" alt="profile" src="~/imgs/PP.jpg" class="ProfilePic" />
+
+           
+                <div class="custom-file mt-2">
+                    <input type="file"
+                           accept="image/*"
+                           asp-for="Picture"
+                           class="custom-file-input"
+                           onchange="document.getElementById('Picture').src=window.URL.createObjectURL(this.files[0])" />
+                    <label asp-for="Picture" class="custom-file-label">Choose Profile Picture....</label>
+                    <span asp-validation-for="Picture" class="text-danger"></span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

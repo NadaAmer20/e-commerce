@@ -1,0 +1,42 @@
+﻿@model List<Product> ;
+@{
+    Layout = "~/Views/shared/_lay.cshtml";
+}
+<section class="product1">
+    <h2>Featured Products</h2>
+    <div class="pro-container">
+
+
+
+        @foreach (var product in Model)
+        {
+
+            <div class="pro" onclick="window.location.href='product.html'">
+                <div class="pro-img">
+
+                    <a asp-action="ShowProduct" asp-controller="Product" asp-route-id="@product.Id">
+
+                        <img src="~/imgs/@product.Image" alt="@product.Name" class="product-image">
+                    </a>
+                    <span>New</span>
+                </div>
+                <div class="pro-info">
+
+                    <h5>@product.Name</h5>
+                    <div class="star">
+                        <i class="fa-solid fa-star" style="color: yellow;"></i>
+                        <i class="fa-solid fa-star" style="color: yellow;"></i>
+                        <i class="fa-solid fa-star" style="color: yellow;"></i>
+                        <i class="fa-solid fa-star" style="color: yellow;"></i>
+                        <i class="fa-solid fa-star" style="color: yellow;"></i>
+                    </div>
+                    <h4>@product.Price</h4>
+                    <a href="#"><i class="fa-solid fa-shopping-cart"></i></a>
+                </div>
+            </div>
+
+
+        }
+    </div>
+
+</section>

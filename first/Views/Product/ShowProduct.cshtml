@@ -1,0 +1,92 @@
+﻿@model Product
+
+<style>
+    #success-message {
+        display: none;
+        background-color: #4CAF50; /* Green background color */
+        color: white; /* White text color */
+        text-align: center;
+        padding: 10px; /* Add some padding */
+        position: fixed; /* Fixed positioning to keep it at the top */
+        top: 0;
+        left: 50%; /* Center the message horizontally */
+        transform: translateX(-50%); /* Center the message horizontally */
+        z-index: 1000; /* Ensure it's above other content */
+        border-radius: 5px; /* Add rounded corners */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+</style>
+
+
+@{
+    Layout = "~/Views/shared/_lay.cshtml";
+}
+
+
+
+
+          @*    <a asp-action="AddToOrder" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-secondary">Add To MyOrder</a>
+
+                <a asp-action="DeleteOrderDetail" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-secondary">Delete From MyOrder</a>
+
+
+
+                <a asp-action="Create" asp-controller="Review" asp-route-id="@Model.Id" class="btn btn-secondary">Add Review</a>
+                <a asp-action="MyOrder" asp-controller="Order" class="btn btn-secondary">YourOrder</a>
+            *@
+
+
+
+
+<section id="product-details">
+    <div class="single-pro-image">
+            <img src="~/imgs/@Model.Image" alt="@Model.Name" width="100%" height="60%" id="main-image" alt="">
+    </div>
+ 
+    <div class="single-pro-details">
+        <h6>@Model.Name</h6>
+        <h4>@Model.Description</h4>
+        <h2>@Model.Price$</h2>
+        <select>
+            <option>S</option>
+            <option>L</option>
+            <option>XL</option>
+            <option>XXL</option>
+            <option>XXXL</option>
+        </select>
+		<form  asp-action="AddToOrder" asp-controller="Order" asp-route-id="@Model.Id" >
+             @*   
+                <input type="hidden" name="id" value="@Model.Id" />
+          *@ 
+          <input type="number" name="Quantity" value="@ViewBag.Quantity">
+
+            <button onclick="showSuccessMessage()">Add To Cart</button>
+         
+        </form>
+        <div>
+            <a asp-action="Create" asp-controller="Review" asp-route-id="@Model.Id"> Add Review </a>
+        </div>
+      
+    </div>
+
+    <div id="success-message" style="display: none;">
+        Product added to Order successfully!
+    </div>
+
+</section>
+
+
+<script>
+    // Function to display the success message
+  
+    function showSuccessMessage() {
+        const successMessage = document.getElementById('success-message');
+        successMessage.style.display = 'block';
+  setTimeout(function () {
+        successMessage.style.display = 'none';
+    }, "60000000"); // 60000 milliseconds (1 minute)
+
+          }
+
+
+</script>

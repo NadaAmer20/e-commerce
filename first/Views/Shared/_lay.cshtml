@@ -1,0 +1,159 @@
+﻿@{
+    if (ViewBag.IsAuth == null)
+    {
+        ViewBag.IsAuth = false;
+
+        ViewBag.UserName = "";
+
+
+    }
+}
+
+<!DOCTYPE html>
+<html lang="Ar">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style></style>
+    <link rel="stylesheet" href="~/css/master.css" />
+    <link rel="stylesheet" href="~/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Store</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h3>Store</h3>
+        </div>
+        <div class="nav">
+            <ul id="navbar">
+                <li><a asp-action="UserHome" asp-controller="User">Home</a></li>
+                
+              
+                      <li><a asp-action="ShowCategoryProduct" asp-controller="Category" asp-route-id="1029">Jewellery</a></li>
+                      <li><a asp-action="ShowCategoryProduct" asp-controller="Category" asp-route-id="1030">Dolls</a></li>
+
+               
+                <li><a class="bag" asp-action="MyOrder" asp-controller="Order"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                <a id="close" href="#" onclick="closeNav()"><i class="fa-solid fa-x"></i></a>
+                @if (@ViewBag.IsAuth)
+                {
+                    <div class="login">
+                  
+                        <a asp-action="Account" asp-controller="User">@ViewBag.UserName</a>
+
+                   
+            </div>
+
+                }
+                else
+                {
+                  <div class="login">
+             
+                    <a asp-action="Login" asp-controller="User">Login</a>
+              
+            </div>
+                }
+            </ul>
+        </div>
+        @if (@ViewBag.IsAuth)
+        {
+            <div class="login">
+                <li>
+					<a asp-action="Account" asp-controller="User">@ViewBag.UserName</a>
+
+                </li>
+            </div>
+
+        }else
+        {
+            <div class="login">
+            <li>
+                <a asp-action="Login" asp-controller="User">Login</a>
+            </li>
+        </div>
+        }
+        <div class="mobile">
+            <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            <i id="bar" onclick="openNav()" class="fas fa-outdent"></i>
+        </div>
+    </header>
+
+    <div>
+
+
+
+        @RenderBody();
+
+
+
+    </div>
+
+    <footer>
+        <div class="footer-info">
+            <div class="col">
+                <h2>Contact</h2>
+                <p><strong>Address: </strong>Cairo - Egypt</p>
+                <p><strong>Phone: </strong>0122225552</p>
+                <p><strong>Hours: </strong>8:00Am - 11:00Pm Sun - Thu</p>
+                <div class="follow-us">
+                    <h4>Follow Us</h4>
+                    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>My Account</h2>
+                <a href="login.html">Login</a>
+                <a href="singup.html">Sign Up</a>
+                <a href="cart.html">View Cart</a>
+            </div>
+            <div class="col">
+                <h2>About</h2>
+                <a href="">About Us</a>
+                <a href="">Privacy Policy</a>
+                <a href="">Contact Us</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023, <span>Marco</span> - Ecommerce Store</p>
+        </div>
+    </footer>
+    <script>
+        function openNav() {
+            document.getElementById('bar').style.right = "0px";
+            document.getElementById('navbar').style.right = "0px";
+        }
+
+        function closeNav() {
+            document.getElementById('close').style.right = "-400px";
+            document.getElementById('navbar').style.right = "-400px";
+        }
+
+        var MainImg = document.getElementById("main-image");
+        var SmallImg = document.getElementsByClassName("small-img");
+
+        SmallImg[0].onclick = function () {
+            MainImg.src = SmallImg[0].src;
+        }
+        SmallImg[1].onclick = function () {
+            MainImg.src = SmallImg[1].src;
+        }
+        SmallImg[2].onclick = function () {
+            MainImg.src = SmallImg[2].src;
+        }
+        SmallImg[3].onclick = function () {
+            MainImg.src = SmallImg[3].src;
+        }
+    </script>
+
+</body>
+</html>
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
